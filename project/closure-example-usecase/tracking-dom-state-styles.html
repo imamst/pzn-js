@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking DOM State / Styles</title>
+    
+    <!-- https://www.ilyameerovich.com/3-use-cases-for-closures/ -->
+
+    <style>
+        .container {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">Test</div>
+
+    <script>
+        function getStyleManager(selector) {
+            const el = document.getQuerySelector(selector);
+
+            if (el === null) {
+                throw new Error("Unable to select element");
+            }
+
+            const initialState = Object.assign({}, window.getComputedStyle(el));
+
+            return {
+                getInitialState: function (prop) {
+                    return initialState[prop];
+                },
+                changeStyleProp: function (key, value) {
+                    el.style[key] = value
+                }
+            }
+        }
+
+        const containerStyleManager = getStyleManager('.container');
+        console.info(containerStyleManager.getInitialState('fontSize')); // 12px
+        console.info(containerStyleManager.changeStyleProp('fontSize', '28px')); // change font size
+        console.info(containerStyleManager.getInitialState('fontSize')); // 12px
+
+        // example use on color apply on el and its reset button
+    </script>
+</body>
+</html>
