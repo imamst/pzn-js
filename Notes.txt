@@ -1,3 +1,7 @@
 for of untuk array
 for in untuk object
+
 macam-macam console.* syntax
+
+real world use case of
+- closure
