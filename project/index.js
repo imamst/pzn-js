@@ -1,5 +1,10 @@
+'use strict';
+
 function createAdder(value) {
     const owner = "Imam";
+    
+    debugger;
+
     function add(param) {
         console.info(owner)
         return value + param;
